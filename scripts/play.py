@@ -30,10 +30,26 @@ def load_policy(logdir):
 
 
 def load_env(label, headless=False):
-    dirs = glob.glob(f"../runs/{label}/*")
-    logdir = sorted(dirs)[0]
 
-    with open(logdir + "/parameters.pkl", 'rb') as file:
+    logdir = f"./runs/{label}"
+    dirs = glob.glob(f"{logdir}/*")
+
+    print(dirs)
+
+    # logdir = sorted(dirs)[0]
+
+
+    param_file = None
+    for f in sorted(dirs):
+        if "parameters.pkl" in f:
+            param_file = f
+            print("=====param_file")
+            print(param_file)
+            break
+
+    assert param_file is not None
+
+    with open(param_file, 'rb') as file:
         pkl_cfg = pkl.load(file)
         print(pkl_cfg.keys())
         cfg = pkl_cfg["Cfg"]
@@ -94,8 +110,8 @@ def play_go1(headless=True):
     import glob
     import os
 
-    label = "gait-conditioned-agility/pretrain-v0/train"
-
+    label = "gait-conditioned-agility/pretrain-v0/train/025417.456545"
+    # label = "gait-conditioned-agility/2024-11-11/train/205831.568151"
     env, policy = load_env(label, headless=headless)
 
     num_eval_steps = 250

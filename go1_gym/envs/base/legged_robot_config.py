@@ -396,8 +396,9 @@ class Cfg(PrefixProto, cli=False):
     # viewer camera:
     class viewer(PrefixProto, cli=False):
         ref_env = 0
-        pos = [10, 0, 6]  # [m]
-        lookat = [11., 5, 3.]  # [m]
+        # this is the place for adjuting camera views for rendering
+        pos = [11, 0, 6]  # [m]
+        lookat = [11, 10, 3]  # [m]
 
     class sim(PrefixProto, cli=False):
         dt = 0.005
